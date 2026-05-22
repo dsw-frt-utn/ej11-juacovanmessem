@@ -133,6 +133,64 @@ internal class Ejemplos
     //Realizar una llamada a cada método definido en CasoLinq y mostar por consola según corresponda
     public static void EjemploLinq()
     {
+        CasoLinq linq = new CasoLinq();
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Libro primero = linq.GetPrimero();
+        Console.WriteLine($"PRIMER LIBRO: ID: {primero.Id}, Título: {primero.Titulo}, Precio: {primero.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Libro ultimo = linq.GetUltimo();
+        Console.WriteLine($"ULTIMO LIBRO: ID: {ultimo.Id}, Título: {ultimo.Titulo}, Precio: {ultimo.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        decimal total = linq.GetTotalPrecios();
+        Console.WriteLine($"Precio Total: {total:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        decimal promedio = linq.GetPromedioPrecios();
+        Console.WriteLine($"Precio Promedio: {promedio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libros con Id mayor a 15:");
+        List<Libro> librosPorId = linq.GetListById();
+        foreach (Libro libro in librosPorId)
+        {
+            Console.WriteLine($"ID: {libro.Id}, Título: {libro.Titulo}, Precio: {libro.Precio:C}");
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Lista de libros con precio:");
+            //le puse los precios y despues el nombre del libro solo para que se vea mas bonito en la consola, aproveche que no aclaraba el orden
+        List<string> libros = linq.GetLibros();
+        foreach (string libro in libros)
+        {
+            Console.WriteLine(libro);
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libro con mayor precio:");
+        Libro mayorPrecio = linq.GetMayorPrecio();
+        Console.WriteLine($"ID: {mayorPrecio.Id}, Título: {mayorPrecio.Titulo}, Precio: {mayorPrecio.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libro con menor precio:");
+        Libro menorPrecio = linq.GetMenorPrecio();
+        Console.WriteLine($"ID: {menorPrecio.Id}, Título: {menorPrecio.Titulo}, Precio: {menorPrecio.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libros con precio mayor al promedio:");
+        List<Libro> mayorPromedio = linq.GetMayorPromedio();
+        foreach (Libro libro in mayorPromedio)
+            Console.WriteLine($"ID: {libro.Id}, Título: {libro.Titulo}, Precio: {libro.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libros ordenados por título (descendente):");
+        List<Libro> ordenados = linq.GetLibrosOrdenadosPorTituloDesc();
+        foreach (Libro libro in ordenados)
+            Console.WriteLine($"ID: {libro.Id}, Título: {libro.Titulo}, Precio: {libro.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
 
     }
 }
