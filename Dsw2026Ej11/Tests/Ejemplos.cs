@@ -1,4 +1,7 @@
-﻿namespace Dsw2026Ej11.Tests;
+﻿using Dsw2026Ej11.Collections;
+using Dsw2026Ej11.Domain;
+
+namespace Dsw2026Ej11.Tests;
 
 
 internal class Ejemplos
@@ -11,7 +14,64 @@ internal class Ejemplos
     //Eliminar el primer elemento de la lista y listar por consola los alumnos
     public static void EjemploList()
     {
+        CasoList list = new CasoList();
 
+        Alumno alu1 = new Alumno(1, "Juan", 8.5);
+        Alumno alu2 = new Alumno(2, "Maria", 9.0);
+        Alumno alu3 = new Alumno(3, "Pedro", 7.5);
+
+        list.AgregarAlumno(alu1);
+        list.AgregarAlumno(alu2);
+        list.AgregarAlumno(alu3);
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Lista de Alumnos: ");
+        foreach (var alumno in list.GetListaAlumnos())
+        {
+            Console.WriteLine("ID :"+alumno.Id+", Nombre :"+alumno.Nombre+", Promedio :"+alumno.Promedio);
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Buscando Alumno por Nombre: Juan");
+        var alumnoBuscado = list.BuscarAlumnoPorNombre("Juan");
+        if (alumnoBuscado != null)
+        {
+            Console.WriteLine("ID :"+alumnoBuscado.Id+", Nombre :"+alumnoBuscado.Nombre+", Promedio :"+alumnoBuscado.Promedio );
+        }
+        else
+        {
+            Console.WriteLine("No existe");
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Buscando Alumno por Nombre: Camila");
+        Alumno? alumnoBuscado2 = list.BuscarAlumnoPorNombre("Camila");
+        if (alumnoBuscado2 != null)
+        {
+            Console.WriteLine("ID :" + alumnoBuscado2.Id + ", Nombre :" + alumnoBuscado2.Nombre + ", Promedio :" + alumnoBuscado2.Promedio);
+        }
+        else
+        {
+            Console.WriteLine("No existe");
+        }
+        Console.WriteLine("═══════════════════════════════════════");
+        list.EliminarAlumno(alu1);
+        Console.WriteLine("--- Alumno eliminado: " + alu1.Nombre);
+        Console.WriteLine("--- Alumnos restantes: ");
+        foreach (var alumno in list.GetListaAlumnos())
+        {
+            Console.WriteLine("ID :"+alumno.Id+", Nombre :"+alumno.Nombre+", Promedio :"+alumno.Promedio);
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        list.EliminarAlumnoPorPosicion(0);
+        Console.WriteLine("--- Alumno en posicion 0 eliminado");
+        Console.WriteLine("--- Alumnos restantes: ");
+        foreach (var alumno in list.GetListaAlumnos())
+        {
+            Console.WriteLine("ID :"+alumno.Id+", Nombre :"+alumno.Nombre+", Promedio :"+alumno.Promedio);
+        }
+        Console.WriteLine("═══════════════════════════════════════");
     }
 
     //Agregar 3 alumnos al diccionario
