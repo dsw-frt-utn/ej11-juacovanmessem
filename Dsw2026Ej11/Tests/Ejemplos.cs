@@ -81,6 +81,52 @@ internal class Ejemplos
     //Eliminar un alumno por clave y listar por consola los alumnos
     public static void EjemploDictionary()
     {
+        CasoDictionary diccionario = new CasoDictionary();
+
+        Alumno alu1 = new Alumno(60123, "Juan", 8.5);
+        Alumno alu2 = new Alumno(60124, "Maria", 9.0);
+        Alumno alu3 = new Alumno(60125, "Pedro", 7.5);
+
+        diccionario.AgregarAlumnoDiccionario(alu1);
+        diccionario.AgregarAlumnoDiccionario(alu2);
+        diccionario.AgregarAlumnoDiccionario(alu3);
+
+        Console.WriteLine("═══════════════════════════════════════");
+
+        Console.WriteLine("--- Lista de Alumnos: ");
+        foreach (var alumno in diccionario.GetDiccionarioAlumnos())
+        {
+            Console.WriteLine("Legajo :"+alumno.Key+", Nombre :"+alumno.Value.Nombre+", Promedio :"+alumno.Value.Promedio);
+        }
+
+
+        Console.WriteLine("═══════════════════════════════════════");
+
+        Console.WriteLine("--- Buscando Alumno por Legajo: 60123");
+        Alumno? encontrado = diccionario.BuscarAlumnoPorLegajo(60123);
+        if (encontrado != null)
+            Console.WriteLine("Alumno encontrado: " + encontrado.Nombre);
+        else
+            Console.WriteLine("No existe");
+
+        Console.WriteLine("═══════════════════════════════════════");
+
+        Console.WriteLine("--- Buscando Alumno por Legajo: 60111");
+        Alumno? encontrado2 = diccionario.BuscarAlumnoPorLegajo(60111);
+        if (encontrado2 != null)
+            Console.WriteLine("Alumno encontrado: " + encontrado2);
+        else
+            Console.WriteLine("No existe");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Eliminando alumno con legajo 60124:");
+        diccionario.EliminarAlumnoPorLegajo(60124);
+
+        Console.WriteLine("--- Alumnos restantes: ");
+        foreach (var alu in diccionario.GetDiccionarioAlumnos())
+        {
+            Console.WriteLine("Legajo: " + alu.Key + ", Nombre: " + alu.Value.Nombre + ", Promedio: " + alu.Value.Promedio);
+        }
 
     }
 
