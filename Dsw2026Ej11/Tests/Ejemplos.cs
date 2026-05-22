@@ -1,4 +1,7 @@
-﻿namespace Dsw2026Ej11.Tests;
+﻿using Dsw2026Ej11.Collections;
+using Dsw2026Ej11.Domain;
+
+namespace Dsw2026Ej11.Tests;
 
 
 internal class Ejemplos
@@ -11,7 +14,64 @@ internal class Ejemplos
     //Eliminar el primer elemento de la lista y listar por consola los alumnos
     public static void EjemploList()
     {
+        CasoList list = new CasoList();
 
+        Alumno alu1 = new Alumno(1, "Juan", 8.5);
+        Alumno alu2 = new Alumno(2, "Maria", 9.0);
+        Alumno alu3 = new Alumno(3, "Pedro", 7.5);
+
+        list.AgregarAlumno(alu1);
+        list.AgregarAlumno(alu2);
+        list.AgregarAlumno(alu3);
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Lista de Alumnos: ");
+        foreach (var alumno in list.GetListaAlumnos())
+        {
+            Console.WriteLine("ID :"+alumno.Id+", Nombre :"+alumno.Nombre+", Promedio :"+alumno.Promedio);
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Buscando Alumno por Nombre: Juan");
+        var alumnoBuscado = list.BuscarAlumnoPorNombre("Juan");
+        if (alumnoBuscado != null)
+        {
+            Console.WriteLine("ID :"+alumnoBuscado.Id+", Nombre :"+alumnoBuscado.Nombre+", Promedio :"+alumnoBuscado.Promedio );
+        }
+        else
+        {
+            Console.WriteLine("No existe");
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Buscando Alumno por Nombre: Camila");
+        Alumno? alumnoBuscado2 = list.BuscarAlumnoPorNombre("Camila");
+        if (alumnoBuscado2 != null)
+        {
+            Console.WriteLine("ID :" + alumnoBuscado2.Id + ", Nombre :" + alumnoBuscado2.Nombre + ", Promedio :" + alumnoBuscado2.Promedio);
+        }
+        else
+        {
+            Console.WriteLine("No existe");
+        }
+        Console.WriteLine("═══════════════════════════════════════");
+        list.EliminarAlumno(alu1);
+        Console.WriteLine("--- Alumno eliminado: " + alu1.Nombre);
+        Console.WriteLine("--- Alumnos restantes: ");
+        foreach (var alumno in list.GetListaAlumnos())
+        {
+            Console.WriteLine("ID :"+alumno.Id+", Nombre :"+alumno.Nombre+", Promedio :"+alumno.Promedio);
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        list.EliminarAlumnoPorPosicion(0);
+        Console.WriteLine("--- Alumno en posicion 0 eliminado");
+        Console.WriteLine("--- Alumnos restantes: ");
+        foreach (var alumno in list.GetListaAlumnos())
+        {
+            Console.WriteLine("ID :"+alumno.Id+", Nombre :"+alumno.Nombre+", Promedio :"+alumno.Promedio);
+        }
+        Console.WriteLine("═══════════════════════════════════════");
     }
 
     //Agregar 3 alumnos al diccionario
@@ -21,12 +81,116 @@ internal class Ejemplos
     //Eliminar un alumno por clave y listar por consola los alumnos
     public static void EjemploDictionary()
     {
+        CasoDictionary diccionario = new CasoDictionary();
+
+        Alumno alu1 = new Alumno(60123, "Juan", 8.5);
+        Alumno alu2 = new Alumno(60124, "Maria", 9.0);
+        Alumno alu3 = new Alumno(60125, "Pedro", 7.5);
+
+        diccionario.AgregarAlumnoDiccionario(alu1);
+        diccionario.AgregarAlumnoDiccionario(alu2);
+        diccionario.AgregarAlumnoDiccionario(alu3);
+
+        Console.WriteLine("═══════════════════════════════════════");
+
+        Console.WriteLine("--- Lista de Alumnos: ");
+        foreach (var alumno in diccionario.GetDiccionarioAlumnos())
+        {
+            Console.WriteLine("Legajo :"+alumno.Key+", Nombre :"+alumno.Value.Nombre+", Promedio :"+alumno.Value.Promedio);
+        }
+
+
+        Console.WriteLine("═══════════════════════════════════════");
+
+        Console.WriteLine("--- Buscando Alumno por Legajo: 60123");
+        Alumno? encontrado = diccionario.BuscarAlumnoPorLegajo(60123);
+        if (encontrado != null)
+            Console.WriteLine("Alumno encontrado: " + encontrado.Nombre);
+        else
+            Console.WriteLine("No existe");
+
+        Console.WriteLine("═══════════════════════════════════════");
+
+        Console.WriteLine("--- Buscando Alumno por Legajo: 60111");
+        Alumno? encontrado2 = diccionario.BuscarAlumnoPorLegajo(60111);
+        if (encontrado2 != null)
+            Console.WriteLine("Alumno encontrado: " + encontrado2);
+        else
+            Console.WriteLine("No existe");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Eliminando alumno con legajo 60124:");
+        diccionario.EliminarAlumnoPorLegajo(60124);
+
+        Console.WriteLine("--- Alumnos restantes: ");
+        foreach (var alu in diccionario.GetDiccionarioAlumnos())
+        {
+            Console.WriteLine("Legajo: " + alu.Key + ", Nombre: " + alu.Value.Nombre + ", Promedio: " + alu.Value.Promedio);
+        }
 
     }
 
     //Realizar una llamada a cada método definido en CasoLinq y mostar por consola según corresponda
     public static void EjemploLinq()
     {
+        CasoLinq linq = new CasoLinq();
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Libro primero = linq.GetPrimero();
+        Console.WriteLine($"PRIMER LIBRO: ID: {primero.Id}, Título: {primero.Titulo}, Precio: {primero.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Libro ultimo = linq.GetUltimo();
+        Console.WriteLine($"ULTIMO LIBRO: ID: {ultimo.Id}, Título: {ultimo.Titulo}, Precio: {ultimo.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        decimal total = linq.GetTotalPrecios();
+        Console.WriteLine($"Precio Total: {total:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        decimal promedio = linq.GetPromedioPrecios();
+        Console.WriteLine($"Precio Promedio: {promedio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libros con Id mayor a 15:");
+        List<Libro> librosPorId = linq.GetListById();
+        foreach (Libro libro in librosPorId)
+        {
+            Console.WriteLine($"ID: {libro.Id}, Título: {libro.Titulo}, Precio: {libro.Precio:C}");
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Lista de libros con precio:");
+            //le puse los precios y despues el nombre del libro solo para que se vea mas bonito en la consola, aproveche que no aclaraba el orden
+        List<string> libros = linq.GetLibros();
+        foreach (string libro in libros)
+        {
+            Console.WriteLine(libro);
+        }
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libro con mayor precio:");
+        Libro mayorPrecio = linq.GetMayorPrecio();
+        Console.WriteLine($"ID: {mayorPrecio.Id}, Título: {mayorPrecio.Titulo}, Precio: {mayorPrecio.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libro con menor precio:");
+        Libro menorPrecio = linq.GetMenorPrecio();
+        Console.WriteLine($"ID: {menorPrecio.Id}, Título: {menorPrecio.Titulo}, Precio: {menorPrecio.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libros con precio mayor al promedio:");
+        List<Libro> mayorPromedio = linq.GetMayorPromedio();
+        foreach (Libro libro in mayorPromedio)
+            Console.WriteLine($"ID: {libro.Id}, Título: {libro.Titulo}, Precio: {libro.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
+        Console.WriteLine("--- Libros ordenados por título (descendente):");
+        List<Libro> ordenados = linq.GetLibrosOrdenadosPorTituloDesc();
+        foreach (Libro libro in ordenados)
+            Console.WriteLine($"ID: {libro.Id}, Título: {libro.Titulo}, Precio: {libro.Precio:C}");
+
+        Console.WriteLine("═══════════════════════════════════════");
 
     }
 }
